@@ -153,9 +153,9 @@ module Sunspot
       #
       # See Sunspot.new_search
       #
-      def new_search(*types)
+      def new_search(*types, &block)
         shard_urls = all_sessions.map { |session| session.config.solr.url }
-        search = @search_session.new_search(*types)
+        search = @search_session.new_search(*types, &block)
         search.build do
           adjust_solr_params { |params| params[:shards] = shard_urls.join(',') }
           # I feel a little dirty doing this.
@@ -171,7 +171,7 @@ module Sunspot
       # See Sunspot.search
       #
       def search(*types, &block)
-        new_search(*types).execute
+        new_search(*types, &block).execute
       end
 
       def more_like_this(object, &block)
