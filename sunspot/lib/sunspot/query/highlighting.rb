@@ -24,6 +24,9 @@ module Sunspot
         if max_snippets = @options[:max_snippets]
           params.merge!(make_params('snippets', max_snippets))
         end
+        if max_analyzed_chars = @options[:max_analyzed_chars]
+          params.merge!(make_params('maxAnalyzedChars', max_analyzed_chars))
+        end
         if fragment_size = @options[:fragment_size]
           params.merge!(make_params('fragsize', fragment_size))
         end
